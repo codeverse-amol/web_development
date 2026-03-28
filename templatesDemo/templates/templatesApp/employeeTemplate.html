@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Template</title>
+</head>
+<body>
+<h1>Employee List</h1>
+
+{% for emp in employees %}
+    <hr>
+    <p>ID: {{ emp.id }}</p>
+    <p>Name: {{ emp.name }}</p>
+    <p>Salary: {{ emp.salary }}</p>
+    <p>Designation: {{ emp.designation }}</p>
+{% endfor %}
+</body>
+</html>
