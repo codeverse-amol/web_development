@@ -1,19 +1,26 @@
 <!DOCTYPE html>
+{% load static %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Template</title>
+    <link rel="stylesheet" href="{% static 'css/emp.css' %}"/>
 </head>
 <body>
-<h1>Employee List</h1>
+    <h1>Employee List</h1>
 
-{% for emp in employees %}
-    <hr>
-    <p>ID: {{ emp.id }}</p>
-    <p>Name: {{ emp.name }}</p>
-    <p>Salary: {{ emp.salary }}</p>
-    <p>Designation: {{ emp.designation }}</p>
-{% endfor %}
+    {% for emp in employees %}
+        <hr>
+        <p>ID: {{ emp.id }}</p>
+        <p>Name: {{ emp.name }}</p>
+        <p>Salary: {{ emp.salary }}</p>
+        <p>Designation: {{ emp.designation }}</p>
+    {% endfor %}
+<hr>
+<p>Images</p>
+<img src="{% static 'images/animals.jpeg' %}"/>
+
 </body>
 </html>
