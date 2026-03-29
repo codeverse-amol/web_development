@@ -1,0 +1,12 @@
+img{
+    height: 300px;
+    width: 500px;
+    border: 10px brown groove;
+    margin: 0% 20%;
+}
+
+ul{
+    color: purple;
+    text-align: center;
+    text-decoration: underline;
+}
