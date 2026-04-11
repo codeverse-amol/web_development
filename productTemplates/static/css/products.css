@@ -1,12 +1,12 @@
 img{
     height: 300px;
     width: 500px;
-    border: 10px brown groove;
+    border: 10px green groove;
     margin: 0% 20%;
 }
 
 ul{
-    color: purple;
+    color: black;
     text-align: center;
     text-decoration: underline;
 }

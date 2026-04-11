@@ -10,10 +10,16 @@
 </head>
 <body>
     <ul>
-        <li>{{ product1 }} <img src="{% static 'images/animals.jpeg' %}" /></li>
-        <li>{{ product2 }} <img src="{% static 'images/animals.jpeg' %}" /></li>
-        <li>{{ product3 }} <img src="{% static 'images/animals.jpeg' %}" /></li>
+        {% for product in products %}
+            {% comment %} <li>{{ product1 }} <img src="{% static 'images/animals.jpeg' %}" /></li>
+            <li>{{ product2 }} <img src="{% static 'images/animals.jpeg' %}" /></li>
+            <li>{{ product3 }} <img src="{% static 'images/animals.jpeg' %}" /></li> {% endcomment %}
+
+            <li>
+                {{ product.name }} 
+                <img src="{% static 'images/' %}{{ product.image }}" alt="{{ product.name }}"/>
+            </li>
+        {% endfor %}
     </ul>
 </body>
-</html>
 </html>
