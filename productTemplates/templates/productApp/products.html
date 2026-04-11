@@ -15,9 +15,7 @@
             <li>{{ product2 }} <img src="{% static 'images/animals.jpeg' %}" /></li>
             <li>{{ product3 }} <img src="{% static 'images/animals.jpeg' %}" /></li> {% endcomment %}
 
-            <li>
-                {{ product.name }} 
-            </li>
+            <li><span class="label">{{ product.name }}</span></li>
 
             <img 
             src="{% static 'images/' %}{{ product.image }}" 

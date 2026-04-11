@@ -5,14 +5,30 @@ img{
     margin: 0% 20%;
 }
 
-.products-page li {
+/* .products-page li {
     color: red;
     text-align: left;
     background-color: blue;
     padding: 2px 8px;
     border-radius: 4px; 
-    
+    display: inline-block; 
+} */
+
+/* This keeps the list item in its correct position */
+.products-page li {
+    list-style: none; /* Removes the bullet point if you don't want it */
+    margin-bottom: 10px; /* Adds space between the products */
 }
+
+/* This styles ONLY the background of the text */
+.label {
+    color: red;
+    background-color: blue;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold; /* Optional: makes it easier to read red on blue */
+}
+
 
 h1{
     color: black;
