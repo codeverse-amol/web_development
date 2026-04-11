@@ -17,7 +17,10 @@
 
             <li>
                 {{ product.name }} 
-                <img src="{% static 'images/' %}{{ product.image }}" alt="{{ product.name }}"/>
+                <img 
+                src="{% static 'images/' %}{{ product.image }}" 
+                alt="{{ product.name }}"
+                onerror="this.onerror=null; this.src='{% static 'images/no_image.jpg' %}'"/>
             </li>
         {% endfor %}
     </ul>
