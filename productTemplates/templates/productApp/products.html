@@ -8,7 +8,7 @@
     <title>Products</title>
     <link rel="stylesheet" href="{% static 'css/products.css' %}"/>
 </head>
-<body>
+<body class = "products-page">
     <ul>
         {% for product in products %}
             {% comment %} <li>{{ product1 }} <img src="{% static 'images/animals.jpeg' %}" /></li>
@@ -17,11 +17,13 @@
 
             <li>
                 {{ product.name }} 
-                <img 
-                src="{% static 'images/' %}{{ product.image }}" 
-                alt="{{ product.name }}"
-                onerror="this.onerror=null; this.src='{% static 'images/no_image.jpg' %}'"/>
             </li>
+
+            <img 
+            src="{% static 'images/' %}{{ product.image }}" 
+            alt="{{ product.name }}"
+            onerror="this.onerror=null; this.src='{% static 'images/no_image.jpg' %}'"/>
+            
         {% endfor %}
     </ul>
 </body>
