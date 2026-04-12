@@ -1,7 +1,7 @@
 img{
     height: 300px;
-    width: 500px;
-    border: 10px green groove;
+    width: 300px;
+    border: 25px green groove;
     margin: 0% 20%;
 }
 
@@ -27,39 +27,4 @@ img{
     padding: 2px 8px;
     border-radius: 4px;
     font-weight: bold; /* Optional: makes it easier to read red on blue */
-}
-
-
-/* 1. Target the h1 with the class "index-page" */
-/* .index-page {
-    list-style: none;
-} */
-
-
-.index-page h1{
-    color: red;
-    text-align: center;
-    text-decoration: underline;
-}
-
-/* 2. Style the list container */
-.index-list h1 {
-    text-align: center;
-    list-style: none; /* Removes bullet points */
-    padding: 0;
-}
-
-/* 3. Style the list items and their background */
-.index-list li {
-    margin-bottom: 15px;
-}
-
-/* 4. Style the links specifically (to get the background on the text) */
-
-.index-list a {
-    color :black;
-    text-align: left;
-    font-weight: bold;
-    background-color: blanchedalmond;
-
 }

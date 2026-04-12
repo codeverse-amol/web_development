@@ -1,0 +1,43 @@
+
+/* 1. Target the h1 with the class "index-page" */
+/* .index-page {
+    list-style: none;
+} */
+
+
+.index-page {
+    background-color: orange;
+    /* text-align: center;
+    text-decoration: underline; */
+}
+
+h1 {
+    color: black;
+    text-align: center;
+    /* text-decoration: underline; */
+}
+
+/* 2. Style the list container */
+.index-list {
+    text-align: left;
+    list-style: none; /* Removes bullet points */
+    padding: 0;
+}
+
+/* 3. Style the list items and their background */
+li {
+    margin-bottom: 15px;
+}
+
+/* 4. Style the links specifically (to get the background on the text) */
+
+a {
+    text-decoration: none;  /* No underline by default */
+    color :black;
+    text-align: left;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background-color: white;
+
+}
