@@ -1,0 +1,38 @@
+🔷 3️⃣ Creating Superuser
+python3 manage.py createsuperuser
+
+Input:
+Username: admin
+Email: admin (hit enter to keep same)
+Password: admin
+
+
+⚠️ Password Warnings
+The password is too similar to the username.
+This password is too short.
+This password is too common.
+
+👉 Django has built-in password validation
+You typed:
+y
+
+👉 Meaning:
+"Ignore validation and create user anyway"
+
+✅ Result:
+Superuser created successfully.
+
+👉 Now you can log in to admin panel
+
+
+🔷 What is Django Admin?
+Django provides a built-in admin panel:
+
+Manage database visually
+Add/edit/delete records
+No need to write UI
+🔷 Why /admin Didn’t Open Directly?
+
+Because:
+Django requires authentication
+So it redirects (302) → login page
