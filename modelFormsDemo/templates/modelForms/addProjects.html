@@ -8,7 +8,7 @@
         <h1>Add Project</h1>
         <form method="POST">
             {% csrf_token %}
-            {{ form.as_p }}
+            {{ form.as_p }} <!-- This will render the form fields as paragraphs. You can also use {{ form.as_table }} or {{ form.as_ul }} for different layouts. -->
             <button type="submit">Submit</button>
         </form>
     </body>
