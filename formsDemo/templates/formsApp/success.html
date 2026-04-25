@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+{% comment %} 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: white;
+            padding: 30px 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #28a745;
+        }
+
+        p {
+            margin: 15px 0;
+            color: #555;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            background: #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background: #0056b3;
+        }
+    </style> {% endcomment %}
+</head>
+<body>
+
+    <div class="card">
+        <h1>✅ Success!</h1>
+    {% if name %}
+        <p>Thank you, {{ name }}!</p>
+    {% endif %}
+        <p>Your form has been submitted successfully.</p>
+
+
+        <a href="{% url 'user_registration' %}">Go Back</a>
+    </div>
+
+</body>
+</html>

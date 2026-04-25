@@ -20,5 +20,6 @@ from formsApp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('user-registration/', views.userRegistrationView),
+    path('user-registration/', views.userRegistrationView, name='user_registration'),
+    path('success/', views.success_view, name='success_page'),
 ]

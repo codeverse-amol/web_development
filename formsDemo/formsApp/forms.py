@@ -1,9 +1,11 @@
 from django import forms
 from django.core import validators
 
+# validators are used to validate the form fields. It is a list of validators that will be applied to the field. It can be used to validate the length of the input, the format of the input, etc.
+
 class UserRegistrationForm(forms.Form):
     GENDER=[('male', 'MALE'), ('female', 'FEMALE')]
-    firstName=forms.CharField()
+    firstName=forms.CharField(required=False, validators=[validators.MinLengthValidator(5), validators.MaxLengthValidator(20)]) 
     lastName=forms.CharField()
     email=forms.EmailField()
     gender=forms.CharField(widget=forms.Select(choices=GENDER))
@@ -11,6 +13,9 @@ class UserRegistrationForm(forms.Form):
     ssn=forms.IntegerField()
 
 
+
+
+'''
     # Using single clean method to validate multiple fields
 
     def clean(self):
@@ -30,7 +35,9 @@ class UserRegistrationForm(forms.Form):
         elif inputPassword.find('@')==-1:
             raise forms.ValidationError("Password should contain '@'")
         
-        
+'''
+
+
 '''
     # quick clean method for each field
 
