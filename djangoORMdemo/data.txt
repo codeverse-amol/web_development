@@ -1,0 +1,29 @@
+Perfect—now we move into real backend design thinking 🚀
+This is where you go from “learning Django” → “thinking like a system designer”.
+
+🔥 What we’ll build conceptually
+
+We’ll design a mini e-commerce system:
+
+    User → Profile
+    User → Orders
+    Order → Products
+    Product → Tags
+    Product → Category
+    Cart → Products
+
+
+
+🔷 Step 1: Identify relationships (VERY IMPORTANT)
+
+Before writing code, always think:
+
+🧠 Real-world relationships =>
+Entity A        Entity B	        Relation
+User        	Profile	            OneToOne
+User	        Orders	            OneToMany
+Order	        Product	            ManyToMany
+Product     	Category	        ForeignKey
+Product	        Tags	            ManyToMany
+User	        Cart	            OneToOne
+Cart	        Products	        ManyToMany
