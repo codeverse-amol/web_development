@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+</head>
+<body>
+    <h1>Your Cart</h1>
+    {% if message %}
+        <p style="color: red;">{{ message }}</p>
+    {% endif %}
+
+    {% if cart.products.exists %}
+        <table border="1">
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+            </tr>
+            {% for product in cart.products.all %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.price }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p>
+            <a href="{% url 'place_order' %}">Place Order</a>
+        </p>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+
+    <p><a href="{% url 'list_products' %}">Continue Shopping</a></p>
+    <p><a href="{% url 'homepage' %}">Dashboard</a></p>
+</body>
+</html>

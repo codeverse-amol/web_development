@@ -22,10 +22,11 @@
     <table border="1">
         <tr>
             <th>User</th>
-            <th>Name</th>
+            <th>Product Name</th>
             <th>Category</th>
             <th>Price</th>
             <th>Tags</th>
+            <th>Add to Cart</th>
         </tr>
         {% for p in products %}
         <tr>
@@ -38,10 +39,12 @@
                     {{ t.name }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
             </td>
+            <td><a href="{% url 'add_to_cart' p.id %}">Add to Cart</a></td>
         </tr>
         {% endfor %}
     </table>
     <br>
+    <a href="{% url 'view_cart' %}">View Cart</a> |
     <a href="{% url 'homepage' %}">Go to Homepage</a>
 </body>
 </html>

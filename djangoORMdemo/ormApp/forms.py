@@ -21,7 +21,7 @@ class ProfileForm(forms.ModelForm):
 )
     class Meta:
         model = Profile
-        fields = ["user", "bio", "location"]
+        fields = ["user", "address"]
 
 
 class CategoryForm(forms.ModelForm):
@@ -43,8 +43,7 @@ class ProductForm(forms.ModelForm):
 )
     class Meta:
         model = Product
-        fields = ['user', 'name', 'price', 'category', 'tags']
-
+        fields = ['name', 'price', 'category', 'tags']
 
 
 # User → Django View → ORM → SQL → MySQL → Data → ORM → View → Template

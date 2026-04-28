@@ -19,11 +19,11 @@ We’ll design a mini e-commerce system:
 Before writing code, always think:
 
 🧠 Real-world relationships =>
-Entity A        Entity B	        Relation
-User        	Profile	            OneToOne
-User	        Orders	            OneToMany
-Order	        Product	            ManyToMany
-Product     	Category	        ForeignKey
-Product	        Tags	            ManyToMany
-User	        Cart	            OneToOne
-Cart	        Products	        ManyToMany
+Entity A       Entity B	            Relation
+User      -->   Profile	            OneToOne
+User	  -->   Orders	            OneToMany
+Order	  -->   Product	            ManyToMany
+Product   -->	Category	        ForeignKey
+Product	  -->   Tags	            ManyToMany
+User	  -->   Cart	            OneToOne
+Cart	  -->   Products	        ManyToMany
