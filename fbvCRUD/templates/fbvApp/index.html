@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Student List</h1>
-    <table border="1">
+    <table border="1", cellpadding="5", cellspacing="0">
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
@@ -20,8 +20,8 @@
             <td>{{ student.firstName }}</td>
             <td>{{ student.lastName }}</td>
             <td>{{ student.testScore }}</td>
-            <td><a href="{% url 'deleteStudent' id=student.id %}">Delete</a></td>
-            <td><a href="{% url 'updateStudent' id=student.id %}">Update</a></td>
+            <td><a href="{% url 'deleteStudent' id=student.id %}">Delete</a>
+                <a href="{% url 'updateStudent' id=student.id %}">Update</a></td>
         </tr>
         {% endfor %}
     </table>

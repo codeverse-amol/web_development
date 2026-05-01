@@ -8,14 +8,13 @@
 </head>
 <body>
     <h1>Update Student</h1>
-    <ul>
        <form method="post">
         {% csrf_token %}
-        First Name: <input type="text" name="firstName" value="{{ student.firstName }}"><br><br>
-        Last Name: <input type="text" name="lastName" value="{{ student.lastName }}"><br><br>
-        Test Score: <input type="number" name="testScore" value="{{ student.testScore }}"><br><br>
+        <table>
+        {{ form.as_table }}
+        </table>
+        <br>
         <input type="submit" value="Update Student">
-    </ul>
     </form>
 
 </body>
