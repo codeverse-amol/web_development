@@ -1,12 +1,18 @@
 from django.shortcuts import render, redirect
-from .models import Student
-from .forms import StudentForm
+from .models import Student, Course
+from .forms import StudentForm, CourseForm
+
+
+
 # Create your views here.
-
-def getStudents(request):
+def index(request):
     students = Student.objects.all()
-    return render(request, "fbvApp/index.html", {'students':students})
+    courses = Course.objects.all()
 
+    return render(request, "fbvApp/index.html", {
+        'students': students,
+        'courses': courses
+    })
 
 
 def createStudent(request):
@@ -26,7 +32,6 @@ def deleteStudent(request, id):
     return redirect('/')
 
 
-
 def updateStudent(request, id):
     student = Student.objects.get(id=id)
     form = StudentForm(instance=student)
@@ -38,3 +43,33 @@ def updateStudent(request, id):
     
     return render(request, 'fbvApp/updateStudent.html', {'student':student, 'form':form})
 
+
+
+# creating views for courses:
+
+
+def createCourse(request):
+    form = CourseForm()
+    if request.method == "POST":
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/")
+    return render(request, "fbvApp/createCourse.html", {'form':form})
+
+
+def deleteCourse(request, id):
+    course = Course.objects.get(id=id)
+    course.delete()
+    return redirect("/")
+
+
+def updateCourse(request, id):
+    course = Course.objects.get(id=id)
+    form = CourseForm(instance=course)
+    if request.method == "POST":
+        form = CourseForm(request.POST, instance=course)
+        if form.is_valid():
+            form.save()
+            return redirect("/")
+    return render(request, "fbvApp/updateCourse.html", {'form':form, 'course':course})

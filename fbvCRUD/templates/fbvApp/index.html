@@ -15,6 +15,7 @@
             <th>Test Score</th>
             <th>Actions</th>
         </tr>
+        {% if students %}
         {% for student in students %}
         <tr>
             <td>{{ student.firstName }}</td>
@@ -24,9 +25,41 @@
                 <a href="{% url 'updateStudent' id=student.id %}">Update</a></td>
         </tr>
         {% endfor %}
+        {% endif %}
     </table>
     <br>
     <a href="{% url 'createStudent' %}">Add Student</a>
 
+    <br><br>
+
+
+
+
+    <h1>Course List</h1>
+    <table border="1", cellpadding="5", cellspacing="0">
+        <tr>
+            <th>Course Name</th>
+            <th>Description</th>
+            <th>Instructor</th>
+            <th>Rating</th>
+            <th>Actions</th>
+        </tr>
+        {% if courses %}
+        {% for course in courses %}
+        <tr>
+            <td>{{ course.courseName }}</td>
+            <td>{{ course.description }}</td>
+            <td>{{ course.instructor }}</td>
+            <td>{{ course.rating }}</td>
+            <td><a href="{% url 'deleteCourse' id=course.id %}">Delete</a>
+                <a href="{% url 'updateCourse' id=course.id %}">Update</a></td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </table>
+    <br>
+    <a href="{% url 'createCourse' %}">Add Course</a>
+
 </body>
+
 </html>
