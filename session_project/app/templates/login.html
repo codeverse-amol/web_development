@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+
+    <h1>Session Demo Login</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="username" placeholder="Enter Username">
+
+        <button type="submit">Login</button>
+    </form>
+
+</body>
+</html>
