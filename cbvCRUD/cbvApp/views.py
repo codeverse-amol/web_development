@@ -1,18 +1,37 @@
 from django.shortcuts import render 
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from .models import Student, Course
 
 # Create your views here.
 
-class IndexView(ListView):
-    model = Student
-    template_name = 'cbvApp/index.html'
-    context_object_name = 'students' # default is student_list, but we can specify a custom name for the context variable in the template.
+# class IndexView(ListView):
+#     model = Student
+#     template_name = 'cbvApp/index.html'
+#     context_object_name = 'students' # default is student_list, but we can specify a custom name for the context variable in the template.
 
-    model = Course
+#     model = Course
+#     template_name = 'cbvApp/index.html'
+#     context_object_name = 'courses' # default is course_list, but we can specify a custom name for the context variable in the template.
+
+
+
+class IndexView(TemplateView):
     template_name = 'cbvApp/index.html'
-    context_object_name = 'courses' # default is course_list, but we can specify a custom name for the context variable in the template.
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['students'] = Student.objects.all()
+        context['courses'] = Course.objects.all()
+        return context
+
+# 👉 This is the best approach when:
+    # You are combining multiple models
+    # You are building a homepage/dashboard
+
+
+
+
 
 class StudentListView(ListView):
     model = Student
@@ -24,7 +43,6 @@ class StudentDetailView(DetailView):
     model = Student
     # default template name is student_detail.html
     # default context variable name is student
-
 
 
 class StudentCreateView(CreateView):
@@ -52,7 +70,6 @@ class StudentDeleteView(DeleteView):
 
 # Course views
 
-
 class CourseListView(ListView):
     model = Course
     # default template name is student_list.html
@@ -63,7 +80,6 @@ class CourseDetailView(DetailView):
     model = Course
     # default template name is course_detail.html
     # default context variable name is course
-
 
 
 class CourseCreateView(CreateView):
