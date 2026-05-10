@@ -1,50 +1,228 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import CategoryForm, ProductForm, TagForm, ProfileForm, UserForm
+from .models import CartItem, Category, Product, Profile, Tag, Cart, Order, OrderItem
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
 
 # LOGIN VIEW
-
 def login_view(request):
-
     if request.method == 'POST':
-
         username = request.POST.get('username')
+        password = request.POST.get('password')
 
-        # SESSION CREATED HERE
-        request.session['username'] = username
+        user = authenticate(
+            request,
+            username=username,
+            password=password
+        )
 
-        print("SESSION DATA:")
-        print(request.session.items())
+        if user is not None:
+            login(request, user)
+            return redirect('dashboard')
 
-        return redirect('dashboard')
-
+        else:
+            return HttpResponse("Invalid username or password")
     return render(request, 'login.html')
-
 
 # DASHBOARD VIEW
 
+# def dashboard_view(request):
+
+#     username = request.session.get('username')
+#     print(request.COOKIES)
+
+#     # CHECK IF SESSION EXISTS
+#     if not username:
+#         return redirect('login')
+
+#     return HttpResponse(f'''
+#         <h1>Welcome {username}</h1>
+#         <a href="/logout/">Logout</a>
+#     ''')
+
+
+
+@login_required          # This decorator ensures that only authenticated users can access the dashboard view. If a user is not authenticated, they will be redirected to the login page.
 def dashboard_view(request):
 
-    username = request.session.get('username')
-
-    # CHECK IF SESSION EXISTS
-    if not username:
-        return redirect('login')
-
-    return HttpResponse(f'''
-        <h1>Welcome {username}</h1>
-        <a href="/logout/">Logout</a>
-    ''')
-
+    return render(request, 'index.html')
 
 # LOGOUT VIEW
 
 def logout_view(request):
 
     # DESTROY SESSION
-    request.session.flush()
+    # request.session.flush()
+    logout(request)            # Django's built-in logout function also clears the session data
 
     return redirect('login')
+
+
+
+# Create your views here.
+
+
+def get_active_user(request):
+    if request.user.is_authenticated:
+        return request.user
+    return User.objects.last()
+
+
+def get_or_create_cart(user):
+    cart, _ = Cart.objects.get_or_create(user=user)
+    return cart
+
+
+def index(request):
+    return render(request, "index.html")
+
+
+def create_user(request):
+    if request.method=="POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.save() 
+            return redirect('new_user')
+    else:
+        form = UserForm()
+    return render(request, "create_user.html", {'form':form})
+
+
+def new_user(request):
+    users = User.objects.all()
+    return render(request, "new_user.html", {'users':users})
+# from django.contrib.auth.decorators import login_required
+
+# @login_required
+def create_profile(request):
+    if request.method=="POST":
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            # 🔥 pick last created user
+            # user = User.objects.last()
+            user = request.user
+            profile.user = user
+            profile.save()
+            return index(request)
+    else:
+        form = ProfileForm()
+    return render(request, "create_profile.html", {'form':form})
+
+
+
+
+
+def add_category(request):
+    if request.method=="POST":
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return index(request)
+    else:
+        form = CategoryForm()
+    return render(request, "addCategory.html", {'form':form})
+
+
+def add_tags(request):
+    if request.method=="POST":
+        form = TagForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return index(request)
+    else:
+        form = TagForm()
+    return render(request, "addTags.html", {'form':form})
+
+
+@login_required
+def add_products(request):
+
+    if request.method == "POST":
+        form = ProductForm(request.POST)
+
+        if form.is_valid():
+
+            product = form.save(commit=False)
+            product.user = request.user
+            product.save()
+            form.save_m2m()
+
+            return redirect('list_products')
+
+    else:
+        form = ProductForm()
+
+    return render(request, "addProducts.html", {'form': form})
+
+
+def list_products(request):
+    products = Product.objects.select_related("category").prefetch_related("tags")
+    return render(request, "listProducts.html", {'products':products})
+
+
+@login_required
+def add_to_cart(request, product_id):
+    cart = get_or_create_cart(request.user)
+    product = get_object_or_404(Product, pk=product_id)
+    cart_item, created = CartItem.objects.get_or_create(
+        cart=cart,
+        product=product
+    )
+
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
+    return redirect('view_cart')
+
+
+@login_required
+def view_cart(request):
+
+    cart = get_or_create_cart(request.user)
+
+    cart_items = cart.items.all()
+
+    return render(request, 'cart.html', {
+        'cart_items': cart_items
+    })
+
+@login_required
+def placed_orders(request):
+    cart = get_or_create_cart(request.user)
+    cart_items = cart.items.all()
+
+    if not cart_items.exists():
+        return HttpResponse("Cart is empty")
+
+    order = Order.objects.create(user=request.user)
+    total_price = 0
+
+    for item in cart_items:
+        OrderItem.objects.create(
+            order=order,
+            product=item.product,
+            quantity=item.quantity
+        )
+        total_price += item.product.price * item.quantity
+    order.price = total_price
+    order.save()
+    cart_items.delete()
+
+    return render(request, 'order_success.html', {
+        'order': order
+    })
+
+
+@login_required
+def order_success(request):
+    return render(request, 'order_success.html')
