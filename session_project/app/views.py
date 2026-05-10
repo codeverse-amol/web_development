@@ -27,8 +27,9 @@ def login_view(request):
             return redirect('dashboard')
 
         else:
-            return HttpResponse("Invalid username or password")
-    return render(request, 'login.html')
+            return HttpResponse("<h3>Invalid username or password</h3>" \
+            "<p><a href='/'>Try Again</a></p>")
+    return render(request, 'registration/login.html')
 
 # DASHBOARD VIEW
 
@@ -48,24 +49,13 @@ def login_view(request):
 
 
 
+
 @login_required          # This decorator ensures that only authenticated users can access the dashboard view. If a user is not authenticated, they will be redirected to the login page.
 def dashboard_view(request):
 
-    return render(request, 'index.html')
-
-# LOGOUT VIEW
-
-def logout_view(request):
-
-    # DESTROY SESSION
-    # request.session.flush()
-    logout(request)            # Django's built-in logout function also clears the session data
-
-    return redirect('login')
+    return render(request, 'app/index.html')
 
 
-
-# Create your views here.
 
 
 def get_active_user(request):
@@ -80,7 +70,7 @@ def get_or_create_cart(user):
 
 
 def index(request):
-    return render(request, "index.html")
+    return render(request, "app/index.html")
 
 
 def create_user(request):
@@ -93,12 +83,12 @@ def create_user(request):
             return redirect('new_user')
     else:
         form = UserForm()
-    return render(request, "create_user.html", {'form':form})
+    return render(request, "app/create_user.html", {'form':form})
 
 
 def new_user(request):
     users = User.objects.all()
-    return render(request, "new_user.html", {'users':users})
+    return render(request, "registration/new_user.html", {'users':users})
 # from django.contrib.auth.decorators import login_required
 
 # @login_required
@@ -115,7 +105,7 @@ def create_profile(request):
             return index(request)
     else:
         form = ProfileForm()
-    return render(request, "create_profile.html", {'form':form})
+    return render(request, "app/create_profile.html", {'form':form})
 
 
 
@@ -129,7 +119,7 @@ def add_category(request):
             return index(request)
     else:
         form = CategoryForm()
-    return render(request, "addCategory.html", {'form':form})
+    return render(request, "app/addCategory.html", {'form':form})
 
 
 def add_tags(request):
@@ -140,7 +130,7 @@ def add_tags(request):
             return index(request)
     else:
         form = TagForm()
-    return render(request, "addTags.html", {'form':form})
+    return render(request, "app/addTags.html", {'form':form})
 
 
 @login_required
@@ -161,12 +151,14 @@ def add_products(request):
     else:
         form = ProductForm()
 
-    return render(request, "addProducts.html", {'form': form})
+    return render(request, "app/addProducts.html", {'form': form})
 
 
+
+@login_required
 def list_products(request):
     products = Product.objects.select_related("category").prefetch_related("tags")
-    return render(request, "listProducts.html", {'products':products})
+    return render(request, "app/listProducts.html", {'products':products})
 
 
 @login_required
@@ -192,7 +184,7 @@ def view_cart(request):
 
     cart_items = cart.items.all()
 
-    return render(request, 'cart.html', {
+    return render(request, 'app/cart.html', {
         'cart_items': cart_items
     })
 
@@ -218,11 +210,26 @@ def placed_orders(request):
     order.save()
     cart_items.delete()
 
-    return render(request, 'order_success.html', {
+    return render(request, 'app/order_success.html', {
         'order': order
     })
 
 
+
 @login_required
 def order_success(request):
-    return render(request, 'order_success.html')
+    return render(request, 'app/order_success.html')
+
+
+
+
+# LOGOUT VIEW
+@login_required
+def logout_view(request):
+
+    # DESTROY SESSION
+    # request.session.flush()
+    logout(request)            # Django's built-in logout function also clears the session data
+
+    return redirect('login')
+

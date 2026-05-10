@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+
+    <h1>User Login</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <p>Username: <input type="text" name="username" placeholder="Enter Username"></p>
+        <p>Password: <input type="password" name="password" placeholder="Enter Password"></p>
+
+        <button type="submit">Login</button>
+    </form>
+    <br>
+    <p><a href="{% url 'create_user' %}">Sign Up</a></p>
+</body>
+</html>
