@@ -10,8 +10,18 @@ class Patient(models.Model):
     age = models.CharField(max_length=20)
 
 
+    def __str__(self):
+        return self.firstName + ' ' + self.lastName
+
+
 class ClinicalData(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    componentName = models.CharField(max_length=20)
+    COMPONENT_CHOICES = [
+        ('bp', 'Blood Pressure'),
+        ('hw', 'Height/Weight'),
+        ('heartrate', 'Heart Rate'),
+    ]
+    
+    componentName = models.CharField(choices=COMPONENT_CHOICES, max_length=20)
     componentValue = models.CharField(max_length=20)
-    measuredDateTime = models.DateTimeField()   
+    measuredDateTime = models.DateTimeField(auto_now_add=True)   
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)

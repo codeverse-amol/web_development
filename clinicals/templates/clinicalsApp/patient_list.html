@@ -29,6 +29,8 @@
                     <td>
                         <a href="{% url 'patient-update' patient.pk %}" class="btn btn-sm btn-warning">Edit</a>
                         <a href="{% url 'patient-delete' patient.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                        <a href="{% url 'add-data' patient.pk %}" class="btn btn-sm btn-info">Add Clinical Data</a>
+                        <a href="{% url 'analyze-data' patient.pk %}" class="btn btn-sm btn-success">Analyze Data</a>
                     </td>
                 </tr>   
                 {% endfor %}

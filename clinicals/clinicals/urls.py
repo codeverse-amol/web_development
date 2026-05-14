@@ -24,4 +24,6 @@ urlpatterns = [
     path('create/', views.PatientCreateView.as_view(), name='patient-create'),
     path('update/<int:pk>/', views.PatientUpdateView.as_view(), name='patient-update'),
     path('delete/<int:pk>/', views.PatientDeleteView.as_view(), name='patient-delete'),
+    path('addData/<int:pk>/', views.addData, name='add-data'),
+    path('analyze/<int:pk>/', views.analyze, name='analyze-data'),
 ]
