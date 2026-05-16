@@ -91,8 +91,7 @@ DATABASES = {
         'NAME': 'clinicalsdb',
         'USER': 'root',
         'PASSWORD': 'test@1234',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'HOST': 'docker-mysql',  # Use the service name defined in docker-compose.yml
     }
 }
 
