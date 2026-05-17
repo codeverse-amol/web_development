@@ -32,7 +32,6 @@ class Tag(models.Model):
 # Product → ManyToMany → Tag
 # Product → ManyToOne → User (Seller)
 # Product → ManyToMany → Cart
-# 
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products')
     
@@ -46,11 +45,12 @@ class Product(models.Model):
         return self.name
 
 
-
+# Cart → OneToOne → User
 class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
+# Cart → ManyToMany → Product (through CartItem)
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -59,13 +59,15 @@ class CartItem(models.Model):
 
 
 
-    
+# Order → ManyToOne → User
+# Order → ManyToMany → Product (through OrderItem)    
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     price = models.FloatField(default=0)
 
-
+# OrderItem → ManyToOne → Order
+# OrderItem → ManyToOne → Product
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

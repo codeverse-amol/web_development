@@ -89,7 +89,7 @@ def create_user(request):
 def new_user(request):
     users = User.objects.all()
     return render(request, "registration/new_user.html", {'users':users})
-# from django.contrib.auth.decorators import login_required
+
 
 # @login_required
 def create_profile(request):
@@ -98,8 +98,8 @@ def create_profile(request):
         if form.is_valid():
             profile = form.save(commit=False)
             # 🔥 pick last created user
-            # user = User.objects.last()
-            user = request.user
+            user = User.objects.last()
+            # user = request.user
             profile.user = user
             profile.save()
             return index(request)
