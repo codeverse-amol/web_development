@@ -2,6 +2,9 @@ from django.urls import path
 from .views import *
 from app import views
 
+from django.conf.urls.static import static
+from django.conf import settings
+
 urlpatterns = [
     path('', login_view, name='login'),
     path('dashboard/', dashboard_view, name='dashboard'),
@@ -20,4 +23,11 @@ urlpatterns = [
     path('cart/', views.view_cart, name='view_cart'),
     path('order/', views.placed_orders, name='place_order'),
     path('order/success/', views.order_success, name='order_success'),
+
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT
+    )

@@ -15,13 +15,14 @@ class UserForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
-    user = forms.ModelChoiceField(
-    queryset=User.objects.all(),
-    empty_label="Select User"   # removes "--------"
-)
+#     user = forms.ModelChoiceField(
+#     queryset=User.objects.all(),
+#     empty_label="Select User"   # removes "--------"
+# )
+
     class Meta:
         model = Profile
-        fields = ["user", "address"]
+        fields = "__all__"
 
 
 class CategoryForm(forms.ModelForm):

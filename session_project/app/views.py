@@ -32,34 +32,25 @@ def login_view(request):
             "<p><a href='/'>Try Again</a></p>")
     return render(request, 'registration/login.html')
 
+
+
 # DASHBOARD VIEW
-
-# def dashboard_view(request):
-
-#     username = request.session.get('username')
-#     print(request.COOKIES)
-
-#     # CHECK IF SESSION EXISTS
-#     if not username:
-#         return redirect('login')
-
-#     return HttpResponse(f'''
-#         <h1>Welcome {username}</h1>
-#         <a href="/logout/">Logout</a>
-#     ''')
-
-
-
 
 @login_required          # This decorator ensures that only authenticated users can access the dashboard view. If a user is not authenticated, they will be redirected to the login page.
 def dashboard_view(request):
+    user = get_active_user(request)
     return render(request, 'app/index.html')
+
+
 
 # get_active_user function checks if the user is authenticated and returns the user object. If the user is not authenticated, it returns the last created user from the database. This function can be used to retrieve the active user in various views.
 def get_active_user(request):
     if request.user.is_authenticated:
+        print("Logged in")
         return request.user
-    return User.objects.last()
+    return None
+
+
 
 # get_or_create_cart function retrieves the cart associated with the user. If the cart does not exist, it creates a new cart for the user. This function is useful for managing the user's shopping cart in the application.
 def get_or_create_cart(user):
@@ -67,12 +58,13 @@ def get_or_create_cart(user):
     return cart
 
 
+
 @login_required
 def index(request):
     return render(request, "app/index.html")
 
 
-@login_required
+
 def create_user(request):
     if request.method=="POST":
         form = UserForm(request.POST)
@@ -94,15 +86,13 @@ def new_user(request):
 @login_required
 def create_profile(request):
     if request.method=="POST":
-        form = ProfileForm(request.POST)
+        form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
             profile = form.save(commit=False)
-            # 🔥 pick last created user
-            user = User.objects.last()
-            # user = request.user
-            profile.user = user
+            # Associate the profile with the currently logged-in user
+            profile.user = request.user
             profile.save()
-            return index(request)
+            return redirect('homepage')
     else:
         form = ProfileForm()
     return render(request, "app/create_profile.html", {'form':form})
@@ -122,6 +112,7 @@ def add_category(request):
     return render(request, "app/addCategory.html", {'form':form})
 
 
+@login_required
 def add_tags(request):
     if request.method=="POST":
         form = TagForm(request.POST)
