@@ -6,14 +6,14 @@ from django.contrib.auth.models import User
 # Profile → OneToOne → User
 class Profile(models.Model):
     GENDER_CHOICES = (('M', 'Male'), ('F', 'Female'), ('O', 'Other'))
-    full_name = models.CharField(max_length=20)
+    fullName = models.CharField(max_length=20)
     phone = models.IntegerField(default=0)
     address = models.CharField(max_length=100)
-    profile_image = models.ImageField(upload_to='profiles/')
+    profileImage = models.ImageField(upload_to='profiles/')
     gender = models.CharField(choices=GENDER_CHOICES, max_length=1)
 
-    def __str__(self):
-        return self.full_name
+    # def __str__(self):
+    #     return self.fullName
 
 
 # Category → OneToMany → Product
