@@ -1,0 +1,48 @@
+/* Container to enable horizontal scrolling on small screens */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+/* Base table styling */
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: sans-serif;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Header styling */
+.custom-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* Cell padding and spacing */
+.custom-table th, 
+.custom-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dddddd;
+}
+
+/* Zebra striping for rows */
+.custom-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+/* Hover effects on rows */
+.custom-table tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Rounded borders compatibility */
+.custom-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
